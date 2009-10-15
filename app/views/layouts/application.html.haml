@@ -1,0 +1,32 @@
+!!!
+%html
+  %head
+    = yield :head
+    = stylesheet_link_tag "ext-all.css"
+    = stylesheet_link_tag "style"
+    = stylesheet_link_tag "/images/icons/ext-silk.css"
+    = javascript_include_tag 'prototype'
+    = javascript_include_tag 'effects'
+    = javascript_include_tag 'dragdrop'
+    = javascript_include_tag 'controls'
+    - if ENV['RAILS_ENV'] == 'development'
+      = javascript_include_tag 'ext-prototype-adapter-debug.js'
+      = javascript_include_tag 'ext-all-debug.js'
+    - else
+      = javascript_include_tag 'ext-prototype-adapter.js'
+      = javascript_include_tag 'ext-all.js'
+    = javascript_include_tag '/javascripts/ext3/examples/ux/RowExpander.js'
+    = javascript_include_tag 'application'
+  %body
+    #header
+      - if @user
+        .logged-in-as
+          Logged in as
+          = @user.login
+      %h1.title
+        %a{:href=>'/'}=h @title || 'Locker'
+
+    #content= yield
+
+    #footer
+      %p{:style => 'height: 20px; padding-top: 5px; font-size: 15px;'}

@@ -1,0 +1,11 @@
+%h1 Your Groups
+
+%ul
+  - @groups.each do |group|
+    %li= link_to group.name, group
+
+%h1 Group Memberships
+
+%ul
+  - @memberships.each do |membership|
+    %li= link_to membership.group.name, membership.group

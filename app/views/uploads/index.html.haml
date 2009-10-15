@@ -1,0 +1,153 @@
+- content_for :head do
+  %link{:href=>'/files.json', :type => 'application/json', :rel => 'exhibit/data'}
+  %script{:src => 'http://static.simile.mit.edu/exhibit/api-2.0/exhibit-api.js', :type => 'text/javascript'}
+  %script{:src => 'http://static.simile.mit.edu/exhibit/extensions-2.0/time/time-extension.js', :type => 'text/javascript'}
+  :javascript
+    var zebraStyler = function(item, database, tr) {
+      if(tr.rowIndex % 2 == 0) {
+        tr.style.background = '#f8f8ff';
+      }
+    }
+
+  %style
+    :sass
+      table.exhibit-tabularView-body
+        :border 1px solid #cccccc
+        :margin-left 10px
+        :width       90%
+
+        th
+          :font-weight bold
+          :border-bottom 2px solid #888888
+          :text-align center
+
+        td
+          :padding-left 2px
+
+#new-file-button
+
+:javascript
+  Ext.onReady(function(){
+    new Ext.Button({
+      text: 'Add File',
+      iconCls: 'silk-add',
+      renderTo: 'new-file-button',
+      handler: function(b,e) {
+        var file_upload = new Ext.Window({
+          title: 'Upload File',
+          renderTo: document.body,
+          floating: true,
+          tools: [{
+            id: 'close',
+            handler: function(e,toolEl,panel,tc) {
+              panel.destroy();
+            }
+          }],
+          items: [{
+            xtype: 'form',
+          buttonAlign: 'center',
+          margins: {
+            left: 5,
+            top: 5
+          },
+          width: 500,
+          buttons: [{
+            text: 'Upload File',
+            type: 'submit',
+            handler: function(f) {
+              var fp = this.ownerCt.ownerCt;
+
+              var form = fp.getForm();
+              if(form.isValid()) {
+                form.submit({
+                  url: #{(uploads_path + '?format=ext_json_html').to_json},
+                  fileUpload: true,
+                  success: function() {
+                    file_upload.destroy();
+                    /* put up an alert letting them know we did it */
+                    /* or make the page reload... */
+                  }
+                });
+              }
+            }
+          }, {
+            text: 'Cancel',
+            type: 'submit',
+            handler: function(f) {
+              var fp = this.ownerCt.ownerCt;
+              fp.destroy();
+            }
+          }],
+          fileUpload: true,
+          formId: 'file-upload-form',
+          url: #{(uploads_path + '?format=ext_json_html').to_json},
+          items: [{
+            xtype: 'textfield',
+            inputType: 'file',
+            name: 'file[file]',
+            fieldLabel: 'File'
+          }, {
+            xtype: 'textfield',
+            name: 'file[display_name]',
+            fieldLabel: 'Display Name'
+          }, {
+            inputType: 'hidden',
+            xtype: 'field',
+            name: 'authenticity_token', 
+            value: #{form_authenticity_token.to_json}
+          }, {
+            xtype: 'textfield',
+            name: 'file[tags]',
+            fieldLabel: 'Tags'
+          }, {
+            xtype: 'textarea',
+            name: 'file[description]',
+            width: 350,
+            fieldLabel: 'Description'
+          }]
+        }]
+        });
+        file_upload.doLayout();
+        file_upload.show();
+      }
+    });
+  });
+
+%div{'ex:role' => 'lens', 'ex:itemTypes' => 'File', :style => 'display: none'}
+  %table.file{:border => 0, :cellspacing => 0, :cellpadding => 0}
+    %tr
+      %th{:colspan => '2'}
+        %a{'ex:href-content' => '.url'}
+          %span{'ex:content' => '.name'}
+    %tr
+      %td{:align => 'right'} Uploaded By:
+      %td
+        %span{'ex:content' => '.uploaded_by'}
+    %tr
+      %td{:align => 'right'} Groups:
+      %td
+        %span{'ex:content' => '.group'}
+    %tr
+      %td{:align => 'right'} Tags:
+      %td
+        %span{'ex:content' => '.tag'}
+    %tr
+      %td{:align => 'right'} Size:
+      %td
+        %span{'ex:content' => '.size'}
+    %tr
+      %td{:colspan => 2, :style => 'border-top: 1px solid #cccccc'}
+        %span{'ex:content' => '.description'}
+  
+%table{:width => '100%'}
+  %tr{:valign => 'top'}
+    %td{:width => '25%', :style => 'padding-right: 3px'}
+      / facets (tags, text search on name, created since, size, group)
+      %div{'ex:role' => 'facet', 'ex:facetClass' => 'TextSearch', 'ex:expression' => '.name', 'ex:facetLabel' => 'Name'}
+      %div{'ex:role' => 'facet', 'ex:facetClass' => 'List', 'ex:expression' => '.tag', 'ex:facetLabel' => 'Tags' }
+      %div{'ex:role' => 'facet', 'ex:facetClass' => 'List', 'ex:expression' => '.uploaded_by', 'ex:facetLabel' => 'Owners' }
+      /%div{'ex:role' => 'facet', 'ex:facetClass' => 'Cloud', 'ex:expression' => '.group', 'ex:facetLabel' => 'Groups' }
+    %td{:width => '75%', :style => 'padding-left: 3px', 'ex:role' => 'viewPanel'}
+      /%div{'ex:role' => 'view', 'ex:orders' => '.name,.created_at,.size', 'ex:showDuplicates' => 'false'}
+      %div{'ex:role' => 'view', 'ex:viewClass' => 'Tabular', 'ex:columns' => '.name, .created_at, .uploaded_by, .size, .url', 'ex:columnLabels' => 'Name, Date, Owner, Size, Link', 'ex:border' => '0', 'ex:cellSpacing' => '0', 'ex:cellPadding' => '0', 'ex:rowStyler' => 'zebraStyler', 'ex:columnFormats' => 'list, date, list, number, url', 'ex:formats' => 'date { mode: long; template: "EEE MMM d, yyyy h:mm A" } number { decimal-digits: 0 } ' }
+      %div{'ex:role' => 'view', 'ex:viewClass' => 'Timeline', 'ex:start' => '.created_at'}

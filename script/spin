@@ -1,0 +1,7 @@
+#! /bin/sh
+
+RELEASE_PATH=$1
+START_PORT=$2
+INSTANCES=$3
+
+nohup $RELEASE_PATH/script/process/spawner -p $START_PORT -i $INSTANCES
