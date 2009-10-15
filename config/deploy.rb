@@ -36,7 +36,7 @@ set :spinner_user, "www"
 set :start_port, 3200
 set :instances, 3
 
-set :use_sudo, false
+#set :use_sudo, false
 
 # If you aren't using Subversion to manage your source code, specify
 # your SCM below:

@@ -24,7 +24,7 @@
           Logged in as
           = @user.login
       %h1.title
-        %a{:href=>'/'}=h @title || 'Locker'
+        %a{:href=> root_path }=h @title || 'Locker'
 
     #content= yield
 
