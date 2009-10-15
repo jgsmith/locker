@@ -11,6 +11,10 @@ class UploadsController < ApplicationController
   end
 
   def index
+    if !@user
+      render :text => 'Forbidden!', :status => :forbidden
+    end
+
     # produce the faceted browser stuff
     respond_to do |format|
       format.html
@@ -47,17 +51,25 @@ class UploadsController < ApplicationController
   end
 
   def show
+    if !@user
+      render :text => 'Forbidden!', :status => :forbidden
+    end
+
     if @file.can_user_view_upload?(@user)
       # take advantage of lighttpd's forwarding mechanism if we can
       send_file @file.path, 
         :type => @file.content_type,
         :filename => @file.filename
     else
-      render :text => 'Forbidden.', :status => 403
+      render :text => 'Forbidden.', :status => :forbidden
     end
   end
 
   def create
+    if !@user
+      render :text => 'Forbidden!', :status => :forbidden
+    end
+
     @group = Group.find(params[:file][:group_id]) rescue nil
     if !@group
       @group = @user.groups.first || @user.group_memberships.first.group rescue nil
