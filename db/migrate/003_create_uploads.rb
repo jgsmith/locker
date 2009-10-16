@@ -6,7 +6,7 @@ class CreateUploads < ActiveRecord::Migration
       t.string :filename
       t.integer :size
       t.string :content_type
-      t.tex    :description
+      t.text    :description
 
       t.timestamps
     end
