@@ -41,17 +41,9 @@ class Upload < ActiveRecord::Base
     FileUtils::cp @file.path, self.path
   end
 
-  def url
-    "/files/" + self.id.to_s
-  end
-
-  def to_ext_json(options)
-    {
-      :id => self.id,
-      :tags => self.tags.collect{|t| t.name},
-      :size => self.size,
-      :name => self.public_name,
-      :url => self.url
-    }.to_ext_json(options)
+  def url(base = nil)
+    base = Rails.configuration.action_controller.relative_url_root if base.nil?
+    base = '' if base.nil?
+    base + "/files/" + self.id.to_s
   end
 end
