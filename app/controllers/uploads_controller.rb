@@ -77,7 +77,7 @@ class UploadsController < ApplicationController
     if @group
       params[:file][:group] = @group
       tags = [ ]
-      tags = params[:file][:tags].gsub(/[^- ,a-z0-9_]/,' ').gsub(/\s+/,' ').split(/\s*,\s*/) unless params[:file][:tags].empty?
+      tags = params[:file][:tags].gsub(/[^- ,A-Za-z0-9_]/,' ').gsub(/\s+/,' ').split(/\s*,\s*/) unless params[:file][:tags].empty?
 
       @file = Upload.create(
         :user => @user,
@@ -87,6 +87,7 @@ class UploadsController < ApplicationController
       )
 
       tags.each do |tag|
+        tag.downcase!
         t = Tag.first(:conditions => [ 'name = ?', tag ])
         if t.nil?
           t = Tag.create( :name => tag )
