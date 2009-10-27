@@ -166,6 +166,7 @@ h1, h2, h3, h4, h5, h6, p, pre, blockquote, fieldset, ul, ol, dl
   :text-align left
   :-moz-border-radius 6px
   :-webkit-border-radius 6px
+  :border-radius 6px
 
 #beta
   :width 286px
@@ -199,7 +200,10 @@ h1, h2, h3, h4, h5, h6, p, pre, blockquote, fieldset, ul, ol, dl
     :border-bottom none
     :-moz-border-radius-topleft 6px
     :-moz-border-radius-topright 6px
-    :-webkit-border-radius 6px
+    :-webkit-border-radius-topleft 6px
+    :-webkit-border-radius-topright 6px
+    :border-top-right-radius 6px
+    :border-top-left-radius 6px
 
   .bd
     :text-align left
@@ -212,7 +216,6 @@ h1, h2, h3, h4, h5, h6, p, pre, blockquote, fieldset, ul, ol, dl
     :padding-left 3px
     :padding-right 3px
     :border-bottom-color = !light_border
-    :-webkit-border-radius 6px
 
     .x-panel
       :border none
@@ -228,6 +231,10 @@ h1, h2, h3, h4, h5, h6, p, pre, blockquote, fieldset, ul, ol, dl
     :border-top none
     :-moz-border-radius-bottomleft 6px
     :-moz-border-radius-bottomright 6px
+    :-webkit-border-radius-bottomleft 6px
+    :-webkit-border-radius-bottomright 6px
+    :border-bottom-left-radius 6px
+    :border-bottom-right-radius 6px
 
 a.icon
   :display block

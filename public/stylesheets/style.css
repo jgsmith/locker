@@ -150,7 +150,8 @@ h1, h2, h3, h4, h5, h6, p, pre, blockquote, fieldset, ul, ol, dl {
   padding: 6px;
   text-align: left;
   -moz-border-radius: 6px;
-  -webkit-border-radius: 6px; }
+  -webkit-border-radius: 6px;
+  border-radius: 6px; }
 
 #beta {
   width: 286px;
@@ -182,7 +183,10 @@ h1, h2, h3, h4, h5, h6, p, pre, blockquote, fieldset, ul, ol, dl {
     border-bottom: none;
     -moz-border-radius-topleft: 6px;
     -moz-border-radius-topright: 6px;
-    -webkit-border-radius: 6px; }
+    -webkit-border-radius-topleft: 6px;
+    -webkit-border-radius-topright: 6px;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px; }
   .module .bd {
     text-align: left;
     background-color: #f2f2f2;
@@ -193,8 +197,7 @@ h1, h2, h3, h4, h5, h6, p, pre, blockquote, fieldset, ul, ol, dl {
     margin: 0;
     padding-left: 3px;
     padding-right: 3px;
-    border-bottom-color: #c0c000;
-    -webkit-border-radius: 6px; }
+    border-bottom-color: #c0c000; }
     .module .bd .x-panel {
       border: none;
       background-color: #f2f2f2; }
@@ -206,7 +209,11 @@ h1, h2, h3, h4, h5, h6, p, pre, blockquote, fieldset, ul, ol, dl {
     border-style: none;
     border-top: none;
     -moz-border-radius-bottomleft: 6px;
-    -moz-border-radius-bottomright: 6px; }
+    -moz-border-radius-bottomright: 6px;
+    -webkit-border-radius-bottomleft: 6px;
+    -webkit-border-radius-bottomright: 6px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px; }
 
 a.icon {
   display: block;
