@@ -1,0 +1,269 @@
+:javascript
+  Ext.onReady(function(){
+    var current_filters;
+
+    var file_store = new Ext.data.JsonStore({
+      autoDestroy: true,
+      url: #{(uploads_path + '?format=ext_json').to_json},
+      root: 'items',
+      autoLoad: true,
+      idProperty: 'id',
+      fields: ['id', 'name', 'url', 'size', 'created_at', 'description', 'tag', 'group', 'uploaded_by' ],
+      listeners: {
+        datachanged: function(store) {
+          var tags = new Hash;
+          var groups = new Hash;
+
+          var tags_checked = new Hash;
+          var groups_checked = new Hash;
+
+          if(current_filters) {
+            if(current_filters.tags) {
+              current_filters.tags.each(function(item) {
+                tags.set(item,0);
+                tags_checked.set(item,1);
+              });
+            }
+            if(current_filters.groups) {
+              current_filters.groups.each(function(item) {
+                groups.set(item,0);
+                groups_checked.set(item,1);
+              });
+            }
+          }
+
+          store.each(function(rec) {
+            var t = rec.get('tag');
+            var g = rec.get('group');
+            if(t) {
+              t.each(function(item) {
+                if(tags.get(item)) {
+                  tags.set(item, tags.get(item)+1);
+                }
+                else {
+                  tags.set(item, 1);
+                }
+              });
+            }
+            if(g) {
+              g.each(function(item) {
+                if(groups.get(item)) {
+                  groups.set(item, groups.get(item)+1);
+                }
+                else {
+                  groups.set(item, 1);
+                }
+              });
+            }
+          });
+
+          var tag_fields = Ext.ComponentMgr.get('filter-tags');
+          var group_fields = Ext.ComponentMgr.get('filter-groups');
+
+          tag_fields.removeAll(true);
+          var tag_threshold = 0;
+          if(tags.keys().size() > 10) {
+              var avg = 0;
+              tags.each(function(k) { avg = avg + k[1]; });
+              avg = avg / tags.keys().size();
+          }
+
+          tags.keys().sort().each(function(k) {
+            tag_fields.add({
+              xtype: 'checkbox',
+              boxLabel: k + ' (' + tags.get(k) + ')',
+              name: 'tags',
+              inputValue: k,
+              checked: tags_checked.get(k) == 1,
+              listeners: {
+                check: function(field) {
+                  update_file_store_filter(field.findParentByType('form').form);
+                }
+              }
+            });
+          });
+          group_fields.removeAll(true);
+          groups.keys().sort().each(function(k) {
+            group_fields.add({
+              xtype: 'checkbox',
+              boxLabel: k + ' (' + groups.get(k) + ')',
+              name: 'groups',
+              inputValue: k,
+              checked: groups_checked.get(k) == 1,
+              listeners: {
+                check: function(field) {
+                  update_file_store_filter(field.findParentByType('form').form);
+                }
+              }
+            });
+          });
+
+          tag_fields.doLayout();
+          group_fields.doLayout();
+          return true;
+        }
+      }
+    });
+
+    var expander = new Ext.ux.grid.RowExpander({
+      tpl: new Ext.Template(
+        '<dl>',
+        '<dt>Tags</dt>',
+        '<dd>{tag}</dd>',
+        '<dt>Description</dt><dd>{description}</dd>',
+        '</dl>'
+      )
+    });
+
+    /*
+     * applies the filter to the records and updates counts as needed
+     */
+
+
+    var update_file_store_filter = function(form) {
+      var filters = form.getValues();
+      if(filters.tags) {
+        filters.tags = $A([ filters.tags ]).flatten();
+      }
+      else {
+        filters.tags = $A([]);
+      }
+      if(filters.groups) {
+        filters.groups = $A([ filters.groups ]).flatten();
+      }
+      else {
+        filters.groups = $A([]);
+      }
+      filters['text'] = filters['text'] || '';
+      current_filters = filters;
+
+      file_store.clearFilter(true);
+      file_store.filterBy(function(rec,id) {
+        if(filters.text != '') {
+          regex = new RegExp(filters.text, "gim");
+          if(!rec.get('name').match(regex) && !rec.get('description').match(regex)) {
+            return false;
+          }
+        }
+
+        var keep_record = false;
+
+        var t = new Hash; var g = new Hash;
+
+        // on to other things, like tags and groups
+        rec.get('tag').each(function(item) {
+          t.set(item, 1);
+        });
+
+        rec.get('group').each(function(item) {
+          g.set(item, 1);
+        });
+
+        var found_tag = false;
+        filters.tags.each(function(item) {
+          if(t.get(item)) {
+            found_tag = true;
+          }
+        });
+
+        var found_group = false;
+        filters.groups.each(function(item) {
+          if(g.get(item)) {
+            found_group = true;
+          }
+        });
+
+        if(filters.tags.size() > 0 && !found_tag || filters.groups.size() > 0 && !found_group) {
+          return false;
+        }
+
+        return true;
+      });
+    };
+
+    var viewport = new Ext.Viewport({
+      layout: 'border',
+      items: [{
+        region: 'north',
+        html: '<h1 class="x-panel-header">File Locker</h1>',
+        autoHeight: true,
+        border: false,
+        margins: '0 0 5 0'
+      }, {
+        region: 'west',
+        collapsible: true,
+        width: 250,
+        id: 'facets',
+        xtype: 'form',
+        items: [{
+          fieldLabel: 'Search',
+          xtype: 'textfield',
+          name: 'text',
+          listeners: {
+            valid: function(field) {
+              update_file_store_filter(field.findParentByType('form').form);
+            }
+          }
+        }, {
+          xtype: 'fieldset',
+          title: 'Tags',
+          id: 'filter-tags',
+          height: 250,
+          autoScroll: true,
+          items: []
+        }, {
+          xtype: 'fieldset',
+          title: 'Groups',
+          id: 'filter-groups',
+          height: 250,
+          autoScroll: true,
+          items: []
+        }]
+      }, {
+        region: 'center',
+        xtype: 'grid',
+        store: file_store,
+        tbar: [{
+          text: 'Refresh',
+          iconCls: 'silk-arrow-refresh',
+          handler: function(b,e) {
+            file_store.reload();
+          }
+        }, {
+          text: 'Upload File',
+          iconCls: 'silk-add',
+          handler: function(b,e) {
+            var upload_form = new Locker.ux.FileUploadWindow({
+              title: 'Upload File',
+              renderTo: document.body,
+              url: #{(uploads_path + '?format=ext_json_html').to_json},
+              url_base: #{root_path.to_json},
+              store: file_store,
+              form_authenticity_token: #{form_authenticity_token.to_json}
+            });
+            upload_form.setPosition(50,50);
+            upload_form.show();
+          }
+        }],
+        plugins: [ expander ],
+        colModel: new Ext.grid.ColumnModel({
+          defaults: {
+            width: 120,
+            sortable: true
+          },
+          columns: [
+            expander,
+            {id: 'name', header: 'Name', width: 200, sortable: true, dataIndex: 'name'},
+            {id: 'created_at', header: 'Date', width: 150, sortable: true, dataIndex: 'created_at'},
+            {id: 'size', header: 'Size', width: 50, sortable: true, dataIndex: 'size' },
+            {id: 'uploaded_by', header: 'Owner', width: 75, sortable: true, dataIndex: 'uploaded_by' }
+          ]
+        }),
+        viewConfig: {
+          forceFit: true
+        },
+        sm: new Ext.grid.RowSelectionModel({singleSelect:true}),
+        frame: false
+      }]
+    });
+  });

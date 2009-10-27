@@ -3,13 +3,15 @@
   %head
     = yield :head
     = stylesheet_link_tag "ext-all.css"
+    = stylesheet_link_tag "css/xtheme-slickness.css"
+    = stylesheet_link_tag "css/xtheme-symphony.css"
     = stylesheet_link_tag "style"
     = stylesheet_link_tag "/images/icons/ext-silk.css"
     = javascript_include_tag 'prototype'
     = javascript_include_tag 'effects'
     = javascript_include_tag 'dragdrop'
     = javascript_include_tag 'controls'
-    - if ENV['RAILS_ENV'] == 'development'
+    - if false && ENV['RAILS_ENV'] == 'development'
       = javascript_include_tag 'ext-prototype-adapter-debug.js'
       = javascript_include_tag 'ext-all-debug.js'
     - else
@@ -17,16 +19,49 @@
       = javascript_include_tag 'ext-all.js'
     = javascript_include_tag '/javascripts/ext3/examples/ux/RowExpander.js'
     = javascript_include_tag 'application'
+    :javascript
+      Ext.BLANK_IMAGE_URL = '#{root_path}images/s.gif';
   %body
-    #header
-      - if @user
-        .logged-in-as
-          Logged in as
-          = @user.login
-      %h1.title
-        %a{:href=> root_path }=h @title || 'Locker'
+    #container
+      #container-inner
+        #header
+          #header-inner
+            #header-content
+              #header-name
+                %a{:href=> root_path }=h @title || 'File Locker'
 
-    #content= yield
+        #main-navigation
+          #main-navigation-inner
+            %ul
+              %li{:class => current_page?(:controller => 'main') ? 'on' : ''}= link_to_unless_current('Home', { :controller => 'main' })
+              %li{:class => current_page?(:controller => 'uploads') ? 'on' : ''}= link_to_unless_current('Files', { :controller => 'uploads' })
+              %li{:class => current_page?(:controller => 'groups') ? 'on' : ''}= link_to_unless_current('Groups', { :controller => 'groups' })
+          %div{:style => 'clear: both;'}
 
-    #footer
-      %p{:style => 'height: 20px; padding-top: 5px; font-size: 15px;'}
+        #content
+          #content-inner
+            #alpha
+              #alpha-inner= yield
+
+            #beta
+              #beta-inner
+                - if @user
+                  .module
+                    .hd= @user.login
+                    .bd
+                      = link_to('Edit Profile', { :controller => 'users', :action => 'edit' })
+                      = yield :user_options
+                    .ft
+                - else
+                  .module
+                    .hd= Login
+                    .bd
+                      %p You are not logged in.
+                    .ft
+                = yield :sidebar
+
+        #footer
+          #footer-inner
+            #footer-content
+              %p{:style => 'height: 20px; padding-top: 5px; font-size: 15px;'}
+                This File Locker is a service of the College of Liberal Arts.

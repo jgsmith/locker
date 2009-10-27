@@ -1,10 +1,11 @@
 %h1=h @group.name
 
 - if @group.user == @user
-  / allow membership editing / display (eventually -- not today)
-  / files here are automatically added to an acl for the group
+  %ul
+    %li= link_to "Edit Group", edit_group_path(@group)
   
 
 - else
-  / allow display of files associated with this group
-  / don't allow display of group membership (for now)
+  %p
+    This group is managed by
+    = @group.user.login + '.'

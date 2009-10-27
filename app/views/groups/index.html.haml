@@ -1,3 +1,7 @@
+- content_for :user_options do
+  .group-options
+    =link_to 'Create Group', { :action => 'new' }
+
 %h1 Your Groups
 
 %ul
@@ -7,5 +11,17 @@
 %h1 Group Memberships
 
 %ul
-  - @memberships.each do |membership|
-    %li= link_to membership.group.name, membership.group
+  - @memberships.each do |group|
+    %li= link_to group.name, group
+
+:javascript
+  Ext.onReady(function(){
+    new Ext.Button({
+      text: 'New Group',
+      renderTo: 'new-group',
+      iconCls: 'silk-add',
+      handler: function(b,e) {
+        document.location=#{new_group_url.to_json}
+      }
+    });
+  });

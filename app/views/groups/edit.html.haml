@@ -1,0 +1,25 @@
+%h1= "Edit #{@group.name}"
+
+.simple-form
+  - form_for :group, :url => { :action => 'update', :id => @group } do |f|
+    = display_success
+    = display_errors
+
+    %input{:type => 'hidden', :name => '_method', :value => 'PUT'}
+
+    .form-field
+      = label(:group, :name)
+      = f.text_field :name
+
+    .form-field
+      = label(:group, :members, "Members (NetIDs, one per line)")
+      = f.text_area :members
+
+    .form-field
+      = f.check_box :members_can_contribute
+      = label(:group, :members_can_contribute, "Group members may attach files to this group?", :class => 'cb')
+
+
+    .form-buttons
+      = f.submit 'Save Changes'
+

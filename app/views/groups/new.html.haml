@@ -1,0 +1,21 @@
+%h1 New Group
+
+.simple-form
+  - form_for :group, :url => { :action => 'create' } do |f|
+    = display_errors
+
+    .form-field
+      = label(:group, :name)
+      = f.text_field :name
+
+    .form-field
+      = label(:group, :members, "Members (NetIDs, one per line)")
+      = f.text_area :members
+
+    .form-field
+      = f.check_box :members_can_contribute
+      = label(:group, :members_can_contribute, "Group members may attach files to this group?", :class => 'cb')
+
+    .form-buttons
+      = f.submit 'Create Group'
+

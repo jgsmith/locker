@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 4) do
+ActiveRecord::Schema.define(:version => 5) do
 
   create_table "group_memberships", :force => true do |t|
     t.integer "group_id"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 4) do
   create_table "groups", :force => true do |t|
     t.integer "user_id"
     t.string  "name"
+    t.boolean "members_can_contribute", :default => false
   end
 
   create_table "groups_uploads", :id => false, :force => true do |t|
@@ -41,6 +42,7 @@ ActiveRecord::Schema.define(:version => 4) do
     t.string   "filename"
     t.integer  "size"
     t.string   "content_type"
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

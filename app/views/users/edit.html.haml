@@ -1,0 +1,17 @@
+%h1 Profile
+
+.simple-form
+  - form_for :user, :url => { :action => 'update' } do |f|
+    = display_success
+    = display_errors
+
+    .form-field
+      = label(:user, :name)
+      = f.text_field :name
+
+    .form-field
+      = label(:user, :email)
+      = f.text_field :email
+
+    .form-buttons
+      = f.submit 'Save Changes'

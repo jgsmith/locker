@@ -4,6 +4,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :groups
   map.resources :uploads, :as => 'files'
 
+  map.connect 'profile', :controller => :users, :action => :edit
+
   # Sample of regular route:
   #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'
   # Keep in mind you can assign values other than :controller and :action

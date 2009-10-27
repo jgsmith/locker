@@ -18,19 +18,11 @@ class User < ActiveRecord::Base
     files.uniq
   end
 
-  # Virtual attribute for the unencrypted password
-#  attr_accessor :password
-
-  validates_presence_of     :login #, :email
-#  validates_presence_of     :password,                   :if => :password_required?
-#  validates_presence_of     :password_confirmation,      :if => :password_required?
-#  validates_length_of       :password, :within => 4..40, :if => :password_required?
-#  validates_confirmation_of :password,                   :if => :password_required?
+  validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
-#  validates_length_of       :email,    :within => 3..100
+  validates_length_of       :email,    :within => 3..100, :allow_nil => true, :allow_blank => true
   validates_uniqueness_of   :login, :case_sensitive => false
-  #validates_uniqueness_of   :login, :email, :case_sensitive => false
-#  before_save :encrypt_password
+  validates_uniqueness_of   :email, :case_sensitive => false, :allow_nil => true, :allow_blank => true
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   # We are authenticating through CAS for now

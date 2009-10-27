@@ -1,135 +1,43 @@
+!dark=#000000
+!light=#f2f2f2
+!light_border=#c0c000
+!dark_border=#808000
+!neutral_border=#cccccc
+
 html
   :height 100%
 
 
 body
-  :background-color #ffffff
-  :color #46494c
+  :background-color = !dark
+  :color = !light
   :margin 0px
   :padding 0px
   :height 100%
-  :font-family sans-serif
-
-
-#header
-  :background-color #e3e6ea
-  :border-bottom 1px solid #500000
-
-  a
-    :text-decoration none
-    :color #46494c
-
-  h1.title
-    :padding 4px
-    :margin 0px
-    :font-size 30px
-    :color #46494c
-
-
-#footer
-  :background-color #e3e6ea
+  :font-family trebuchet ms
+  :font-size 13px
+  :font-size-adjust none
+  :font-stretch normal
+  :font-style normal
+  :font-variant normal
+  :font-weight normal
+  :line-height normal
   :text-align center
-  :border-top 1px solid #500000
-  :padding 4px
 
-  p
-    :font-size 90%
+h1
+  :font-size 241%
 
+h2
+  :font-size 200%
 
-#content
-  :padding 5px
-  :min-height 500px
+h3
+  :font-size 171%
 
-  h2.title
+h4
+  :font-size 130%
 
-    a
-      :text-decoration none
-      :color #46494c
-
-.message
-  :display block
-  :background-color #88ff88
-  :border 1px solid #448844
-
-
-.error
-  :display block
-  :background-color #ff8888
-  :border 1px solid #884444
-
-
-.form-body
-  :border 1px dotted #ccccc
-  :margin 3px
-  :padding 3px
-  :background-color #eeeeee
-  :max-width 36em
-  :margin-left auto
-  :margin-right auto
-  :display block
-
-
-.form-selection-option
-  :display block
-
-
-.form-buttons
-  :text-align center
-  :display block
-  :margin-top 3px
-
-
-.form-group
-  :border 1px solid #cccccc
-  :padding 3px
-  :margin 3px
-  :display block
-
-
-.form-group-elements .form-element-label
-  :display none
-
-
-.form-element
-  :display block
-
-
-.container-title
-  :font-size 140%
-  :font-weight bolder
-
-
-.logged-in-as
-  :float right
-  :margin-right 10px
-  :margin-top 8px
-  :font-size 15px
-
-
-ol.timeline
-  :padding 3px
-  :margin 3px
-  :border 1px solid #cccccc
-
-  li
-    :display inline
-    :margin 0px
-    :padding-right 3px
-    :padding-left 7px
-    :color #888888
-
-    &.current
-      :color #000000
-      :font-weight bold
-
-  li+li
-    :border-left 1px solid #cccccc
-
-
-.message-read
-
-.message-unread
-  :font-weight bold
+a
+  :text-decoration none
 
 em
   :font-style italic
@@ -137,108 +45,255 @@ em
 p
   :padding-top 3px
   :padding-bottom 2px
-  :text-indent 3em
 
-#instructions
-  :padding 3px
+blockquote, ol, ul
+  :margin-left 30px
 
-  ul
-    :list-style-type disc
-    :list-style-position inside
-    :margin-left 5em
+h1, h2, h3, h4, h5, h6, p, pre, blockquote, fieldset, ul, ol, dl
+  :margin-bottom 0.75em
 
-    li
-
-      p
-        :text-indent 0em
-        :display inline
-
-  ol
-    :list-style-type decimal
-    :list-style-position inside
-    :margin-left 5em
-
-    li
-
-      p
-        :text-indent 0em
-        :display inline
-
-#message-headers
-  :border-bottom 1px solid #cccccc
-
-#message-attachments
-  :border-top 1px solid #cccccc
-
-  ol
-    :list-style-type decimal
-    :list-style-position inside
-    :margin-left 5em
-
-
-#message-body
-  :padding 3px
-
-  p
-    :text-indent 5em
-
-  blockquote
-    :margin-left 2em
-    :border-left 4px solid #dddddd
-
-  ul
-    :list-style-type disc
-    :list-style-position inside
-    :margin-left 5em
-
-    li
-
-      p
-        :text-indent 0em
-        :display inline
-
-  ol
-    :list-style-type decimal
-    :list-style-position inside
-    :margin-left 5em
-
-    li
-
-      p
-        :text-indent 0em
-        :display inline
-
-
-
-.x-author-timeline-panel-ml
-  :padding-left 4px
-  :background transparent url(/images/author-tl-lr.gif) repeat-y 0 0
-  :zoom 1
-
-.x-author-timeline-panel-mr
-  :padding-right 4px
-  :background transparent url(/images/author-tl-lr.gif) repeat-y right 0
-  :zoom 1
-
-.x-author-timeline-panel-mc
-  :background #eeffee
-  :overflow   hidden
-
-.x-author-timeline-panel-tl
-  :background #eeffee url(/images/author-tl-cs.gif) no-repeat 0 0
-  :padding-left 11px
-  :zoom 1
-
-.x-author-timeline-panel-tr
-  :background #eeffee url(/images/author-tl-cs.gif) no-repeat right top
-  :padding-right 11px
-  :zoom 1
-
-.x-author-timeline-panel-tc
-  :background #eeffee url(/images/author-tl-tb.gif) repeat-x 0 0
-  :height 9px
-  :overflow hidden
-  :padding-top 4px
-
-
+#container-inner
+  :margin-left 0px
+  :margin-right 0px
+  :width 100%
+  :min-height 100%
   
+#header, #content, #alpha, #beta, #footer
+  :position relative
+
+#header-inner, #content-inner, #footer-inner, #main-navigation, #footer-content
+  :height 1%
+
+#header
+  :background = !dark
+
+#header-inner
+  :margin 0 auto
+  :position relative
+  :width 940px
+  :padding 0
+  :overflow hidden
+
+#header-content
+  :margin 10px 0 10px 20px
+  :width  842px
+  :text-align left
+
+  a
+    :color = !light
+
+#header-name
+  :font-size 261%
+  :font-weight bold
+  :margin-bottom 5px
+
+#main-navigation
+  :background url(nav-bkgd.png) repeat-x scroll center center
+  :background-color = !dark
+  :border-bottom 1px solid 
+  :border-bottom-color = !dark_border
+  :border-top 1px solid 
+  :border-top-color = !light_border
+
+  ul
+    :list-style-image none
+    :list-style-position outside
+    :list-style-type none
+    :margin 0
+
+    li.on
+      :float left
+      :color = !light_border
+      :padding 7px 16px 7px 17px
+      :background url(nav-bkgd-h.png) repeat-x scroll center center
+      :border-bottom 3px solid
+      :border-bottom-color = !light_border
+
+    li
+      :float left
+
+      a
+        :color = !light_border
+        :display block
+        :font-weight bold
+        :background url(nav-bkgd.png) repeat-x scroll center center
+        :padding 7px 16px 10px 17px
+        :text-decoration none
+        :border-bottom none
+
+      a:hover
+        :background url(nav-bkgd-h.png) repeat-x scroll center center
+        :border-right 1px solid
+        :border-right-color = !dark
+        :border-left 1px solid
+        :border-left-color = !dark
+        :padding 7px 15px 7px 16px
+        :border-bottom 3px solid
+        :border-bottom-color = !light_border
+
+#main-navigation-inner
+  position: relative
+  margin: 0 auto
+  :width 940px
+  
+
+#content
+  :line-height 1.5
+  :clear both
+  :margin-bottom 11px
+  :margin-top 10px
+  :width 940px
+  :margin-left auto
+  :margin-right auto
+
+  a
+    :text-decoration none
+    :color #46494c
+
+#alpha, #beta
+  :display inline
+  :float left
+  :margin-bottom 10px
+
+#alpha
+  :width 646px
+  :padding-right 4px
+
+#alpha-inner
+  :background-color = !light
+  :color = !dark
+  :padding 6px
+  :text-align left
+  :-moz-border-radius 6px
+  :-webkit-border-radius 6px
+
+#beta
+  :width 286px
+  :padding-left 4px
+
+#beta-inner
+
+#footer
+  :clear both
+  :border-top 1px solid 
+  :border-top-color = !dark_border
+  :background-color = !dark
+
+#footer-content
+  :margin 20px 0
+  :color = !light
+
+.module
+  :background-color = !dark
+  :color = !light
+  :margin-bottom 10px
+
+  .hd
+    :font-size 140%
+    :font-weight bold
+    :background url(nav-bkgd.png) repeat-x scroll center center
+    :background-color = !dark
+    :color = !light_border
+    :margin 0
+    :border-style none
+    :border-bottom none
+    :-moz-border-radius-topleft 6px
+    :-moz-border-radius-topright 6px
+    :-webkit-border-radius 6px
+
+  .bd
+    :text-align left
+    :background-color = !light
+    :border-style none
+    :border-top none
+    :border-bottom none
+    :color = !dark
+    :margin 0
+    :padding-left 3px
+    :padding-right 3px
+    :border-bottom-color = !light_border
+    :-webkit-border-radius 6px
+
+    .x-panel
+      :border none
+      :background-color = !light
+
+      .x-panel-body
+        :border none
+
+  .ft
+    :min-height 5px
+    :background-color = !light
+    :border-style none
+    :border-top none
+    :-moz-border-radius-bottomleft 6px
+    :-moz-border-radius-bottomright 6px
+
+a.icon
+  :display block
+  :width 16px
+  :height 16px
+
+.x-form
+  :background-color = !light
+
+.x-fieldset-header-text
+  :color = !dark
+
+.x-form-item-label
+  :color = !dark
+
+.x-combo-list-item
+  :color = !dark
+  :text-align left
+
+.x-window-tc
+  :background url(nav-bkgd.png) repeat-x scroll center center
+
+.x-window-header-text
+  :color = !light_border
+
+.form-field
+  label
+    :display block
+    :margin-top 10px
+
+  label.cb
+    :display inline
+
+
+.simple-form
+  :margin-left auto
+  :margin-right auto
+  :width 60%
+
+
+.form-buttons
+  :text-align center
+  :margin-top 10px
+
+ul#errors
+  :padding 10px
+  :width  90%
+  :margin-left auto
+  :margin-right auto
+  :background-color #fff2f2
+  :border 3px solid #ff3333
+
+ul#success
+  :padding 10px
+  :width  90%
+  :margin-left auto
+  :margin-right auto
+  :background-color #f2fff2
+  :border 3px solid #33ff33
+
+
+dl.file-info
+  :text-align left
+
+  dt
+    :font-weight bold
+
+  dd
+    :text-indent 1em
