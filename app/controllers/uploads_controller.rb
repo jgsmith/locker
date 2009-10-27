@@ -23,6 +23,7 @@ class UploadsController < ApplicationController
           :items => @user.available_files.uniq.collect {|file|
             { :id => file.id,
               :name => file.display_name,
+              :filename => file.filename,
               :url => file.url,
               :size => file.size,
               :label => file.display_name + ' (' + file.id.to_s + ')',

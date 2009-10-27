@@ -50,7 +50,7 @@
       root: 'items',
       autoLoad: true,
       idProperty: 'id',
-      fields: ['id', 'name', 'url', 'size', 'created_at', 'description', 'tag', 'group', 'uploaded_by' ],
+      fields: ['id', 'name', 'url', 'size', 'created_at', 'description', 'tag', 'group', 'uploaded_by', 'filename' ],
       listeners: {
         datachanged: function(store) {
           var tags = new Hash;
@@ -152,6 +152,7 @@
 
     var file_view_tmpl = new Ext.XTemplate(
       "<dl class='file-info'>",
+      "<dt>Filename</dt><dd>{filename}</dd>",
       "<dt>Uploaded by</dt><dd>{uploaded_by}</dd>",
       "<dt>Groups</dt><dd>{group}</dd>",
       "<dt>Tags</dt><dd>{tag}</dd>",
