@@ -19,18 +19,19 @@ class UploadFilter < ActiveRecord::Base
   def files
     # select all files that match all tags and groups (or any...)
     # based on require_all?
+    joins = %{
+      LEFT JOIN groups_uploads gu ON gu.upload_id = uploads.id
+      LEFT JOIN tags_uploads tu ON tu.upload_id = uploads.id
+      LEFT JOIN group_memberships gm ON gm.group_id = gu.group_id
+      LEFT JOIN groups g ON g.id = gm.group_id
+      LEFT JOIN tags_upload_filters ft ON ft.tag_id = tu.tag_id
+      LEFT JOIN groups_upload_filters fg ON fg.group_id = gu.group_id
+    }
 
     if self.require_all?
       # require all
       Upload.find(:all,
-        :joins => %{
-          LEFT JOIN groups_uploads gu ON gu.upload_id = uploads.id
-          LEFT JOIN tags_uploads tu ON tu.upload_id = uploads.id
-          LEFT JOIN group_memberships gm ON gm.group_id = gu.group_id
-          LEFT JOIN groups g ON g.id = gm.group_id
-          LEFT JOIN tags_upload_filters ft ON ft.tag_id = tu.tag_id
-          LEFT JOIN groups_upload_filters fg ON fg.group_id = gu.group_id
-        },
+        :joins => joins,
         :select => 'DISTINCT(uploads.*)',
         :order => 'uploads.created_at DESC',
         :limit => self.size,
@@ -41,25 +42,58 @@ class UploadFilter < ActiveRecord::Base
       )
     else
       # require any
-      Upload.find(:all,
-        :joins => %{
-          LEFT JOIN groups_uploads gu ON gu.upload_id = uploads.id
-          LEFT JOIN tags_uploads tu ON tu.upload_id = uploads.id
-          LEFT JOIN group_memberships gm ON gm.group_id = gu.group_id
-          LEFT JOIN groups g ON g.id = gm.group_id
-          LEFT JOIN tags_upload_filters ft ON ft.tag_id = tu.tag_id
-          LEFT JOIN groups_upload_filters fg ON fg.group_id = gu.group_id
-        },
-        :select => 'DISTINCT uploads.*',
-        :order => 'uploads.created_at DESC',
-        :limit => self.size,
-        :conditions => [ %{
-          ft.upload_filter_id = ? AND fg.upload_filter_id = ?
-          AND (gm.user_id = ? OR g.user_id = ?)
-        }, 
-          self.id, self.id, self.user.id, self.user.id 
-        ]
-      )
+      if self.tags.count > 0 && self.groups.count > 0
+        Upload.find(:all,
+          :joins => joins,
+          :select => 'DISTINCT uploads.*',
+          :order => 'uploads.created_at DESC',
+          :limit => self.size,
+          :conditions => [ %{
+            ft.upload_filter_id = ? AND fg.upload_filter_id = ?
+            AND (gm.user_id = ? OR g.user_id = ?)
+          }, 
+            self.id, self.id, self.user.id, self.user.id 
+          ]
+        )
+      elsif self.tags.count > 0
+        Upload.find(:all,
+          :joins => joins,
+          :select => 'DISTINCT uploads.*',
+          :order => 'uploads.created_at DESC',
+          :limit => self.size,
+          :conditions => [ %{
+            ft.upload_filter_id = ?
+            AND (gm.user_id = ? OR g.user_id = ?)
+          }, 
+            self.id, self.user.id, self.user.id 
+          ]
+        )
+      elsif self.groups.count > 0
+        Upload.find(:all,
+          :joins => joins,
+          :select => 'DISTINCT uploads.*',
+          :order => 'uploads.created_at DESC',
+          :limit => self.size,
+          :conditions => [ %{
+            fg.upload_filter_id = ?
+            AND (gm.user_id = ? OR g.user_id = ?)
+          }, 
+            self.id, self.user.id, self.user.id 
+          ]
+        )
+      else
+        Upload.find(:all,
+          :joins => joins,
+          :select => 'DISTINCT uploads.*',
+          :order => 'uploads.created_at DESC',
+          :limit => self.size,
+          :conditions => [ %{
+            gm.user_id = ? OR g.user_id = ?
+          }, 
+            self.user.id, self.user.id 
+          ]
+        )
+      end
     end
   end
 end
