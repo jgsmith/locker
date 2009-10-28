@@ -1,5 +1,6 @@
 class UploadFiltersController < ApplicationController
-  before_filter :find_upload_filter, :only => [ :show, :edit, :update, :change_web_id ]
+  before_filter :find_upload_filter, :only => [ :edit, :update, :change_web_id ]
+  before_filter :find_upload_filter_by_ids, :only => [ :show ]
 
   rescue_from ActiveRecord::RecordNotFound do |exception|
     respond_to do |format|
@@ -31,8 +32,9 @@ class UploadFiltersController < ApplicationController
   def create
     tag_field = params[:upload_filter].delete(:tag_list)
     group_field = params[:upload_filter].delete(:groups)
-    @upload_filter = UploadFilter.build(params[:upload_filter])
-    @upload_filter.user = @user
+    params[:upload_filter][:user_id] = @user.id
+    @upload_filter = UploadFilter.create(params[:upload_filter])
+    #@upload_filter.user = @user
     @upload_filter.generate_web_id
     if @upload_filter.save
       # add tags/groups
@@ -94,6 +96,10 @@ class UploadFiltersController < ApplicationController
 protected
 
   def find_upload_filter
+    @filter = UploadFilter.find(params[:id])
+  end
+
+  def find_upload_filter_by_ids
     if params[:id] =~ /^\d+$/
       @filter = UploadFilter.find(params[:id])
     else

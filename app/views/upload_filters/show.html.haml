@@ -1,5 +1,7 @@
 %h1=h @filter.name
 
+= display_success
+
 %ul
   %li= link_to "Edit Feed", edit_upload_filter_path(@filter)
   %li= link_to "Change Feed URL", {:controller=>"upload_filters", :action=>"change_web_id", :id => @filter}
