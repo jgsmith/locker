@@ -29,7 +29,7 @@ class UploadsController < ApplicationController
               :label => file.display_name + ' (' + file.id.to_s + ')',
               :tag => file.tags.collect { |t| t.name },
               :group => file.groups.select{|g| g.user == @user || g.is_member?(@user)}.collect {|g| g.name_for(@user) },
-              :created_at => file.created_at.strftime('%Y-%m-%d %H:%M'),
+              :created_at => file.created_at.strftime('%m/%d/%Y %H:%M GMT%z'),
               :uploaded_by => file.user.login,
               :description => (BlueCloth.new(file.description || '').to_html),
               :type => 'File'

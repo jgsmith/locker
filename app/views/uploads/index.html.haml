@@ -50,7 +50,7 @@
       root: 'items',
       autoLoad: true,
       idProperty: 'id',
-      fields: ['id', 'name', 'url', 'size', 'created_at', 'description', 'tag', 'group', 'uploaded_by', 'filename' ],
+      fields: ['id', 'name', 'url', 'size', { name:'created_at', type:'date' }, 'description', 'tag', 'group', 'uploaded_by', 'filename' ],
       listeners: {
         datachanged: function(store) {
           var tags = new Hash;
@@ -193,17 +193,22 @@
         tpl: '<a class="silk-page-go icon" href="{url}">&nbsp;</a>'
       }, {
         header: 'File',
-        width: 0.5,
+        width: 0.45,
         dataIndex: 'name',
         tpl: '{name}'
       }, {
+        header: 'Uploaded By',
+        width: 0.20,
+        dataIndex: 'uploaded_by'
+      }, {
         header: 'Date',
-        width: 0.35,
+        width: 0.20,
         dataIndex: 'created_at',
-        tpl: '{created_at:date("y-m-d h:i a")}'
+        tpl: '{created_at:date("Y-m-d h:i a")}'
       }, {
         header: 'Size',
         dataIndex: 'size',
+        width: 0.10,
         tpl: '{size:fileSize}',
         align: 'right'
       }]
