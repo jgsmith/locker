@@ -2,8 +2,8 @@ html {
   height: 100%; }
 
 body {
-  background-color: #000000;
-  color: #f2f2f2;
+  background-color: #303030;
+  color: #f8f8f8;
   margin: 0px;
   padding: 0px;
   height: 100%;
@@ -58,7 +58,7 @@ h1, h2, h3, h4, h5, h6, p, pre, blockquote, fieldset, ul, ol, dl {
   height: 1%; }
 
 #header {
-  background: #000000; }
+  background: #303030; }
 
 #header-inner {
   margin: 0 auto;
@@ -72,7 +72,7 @@ h1, h2, h3, h4, h5, h6, p, pre, blockquote, fieldset, ul, ol, dl {
   width: 842px;
   text-align: left; }
   #header-content a {
-    color: #f2f2f2; }
+    color: #f8f8f8; }
 
 #header-name {
   font-size: 261%;
@@ -81,7 +81,7 @@ h1, h2, h3, h4, h5, h6, p, pre, blockquote, fieldset, ul, ol, dl {
 
 #main-navigation {
   background: url(nav-bkgd.png) repeat-x scroll center center;
-  background-color: #000000;
+  background-color: #303030;
   border-bottom: 1px solid;
   border-bottom-color: #808000;
   border-top: 1px solid;
@@ -111,9 +111,9 @@ h1, h2, h3, h4, h5, h6, p, pre, blockquote, fieldset, ul, ol, dl {
       #main-navigation ul li a:hover {
         background: url(nav-bkgd-h.png) repeat-x scroll center center;
         border-right: 1px solid;
-        border-right-color: #000000;
+        border-right-color: #303030;
         border-left: 1px solid;
-        border-left-color: #000000;
+        border-left-color: #303030;
         padding: 7px 15px 7px 16px;
         border-bottom: 3px solid;
         border-bottom-color: #c0c000; }
@@ -145,8 +145,8 @@ h1, h2, h3, h4, h5, h6, p, pre, blockquote, fieldset, ul, ol, dl {
   padding-right: 4px; }
 
 #alpha-inner {
-  background-color: #f2f2f2;
-  color: #000000;
+  background-color: #f8f8f8;
+  color: #303030;
   padding: 6px;
   text-align: left;
   -moz-border-radius: 6px;
@@ -162,21 +162,21 @@ h1, h2, h3, h4, h5, h6, p, pre, blockquote, fieldset, ul, ol, dl {
   clear: both;
   border-top: 1px solid;
   border-top-color: #808000;
-  background-color: #000000; }
+  background-color: #303030; }
 
 #footer-content {
   margin: 20px 0;
-  color: #f2f2f2; }
+  color: #f8f8f8; }
 
 .module {
-  background-color: #000000;
-  color: #f2f2f2;
+  background-color: #303030;
+  color: #f8f8f8;
   margin-bottom: 10px; }
   .module .hd {
     font-size: 140%;
     font-weight: bold;
     background: url(nav-bkgd.png) repeat-x scroll center center;
-    background-color: #000000;
+    background-color: #303030;
     color: #c0c000;
     margin: 0;
     border-style: none;
@@ -189,23 +189,23 @@ h1, h2, h3, h4, h5, h6, p, pre, blockquote, fieldset, ul, ol, dl {
     border-top-left-radius: 6px; }
   .module .bd {
     text-align: left;
-    background-color: #f2f2f2;
+    background-color: #f8f8f8;
     border-style: none;
     border-top: none;
     border-bottom: none;
-    color: #000000;
+    color: #303030;
     margin: 0;
     padding-left: 3px;
     padding-right: 3px;
     border-bottom-color: #c0c000; }
     .module .bd .x-panel {
       border: none;
-      background-color: #f2f2f2; }
+      background-color: #f8f8f8; }
       .module .bd .x-panel .x-panel-body {
         border: none; }
   .module .ft {
     min-height: 5px;
-    background-color: #f2f2f2;
+    background-color: #f8f8f8;
     border-style: none;
     border-top: none;
     -moz-border-radius-bottomleft: 6px;
@@ -221,16 +221,16 @@ a.icon {
   height: 16px; }
 
 .x-form {
-  background-color: #f2f2f2; }
+  background-color: #f8f8f8; }
 
 .x-fieldset-header-text {
-  color: #000000; }
+  color: #303030; }
 
 .x-form-item-label {
-  color: #000000; }
+  color: #303030; }
 
 .x-combo-list-item {
-  color: #000000;
+  color: #303030;
   text-align: left; }
 
 .x-window-tc {
