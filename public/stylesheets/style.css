@@ -30,7 +30,14 @@ h4 {
   font-size: 130%; }
 
 a {
-  text-decoration: none; }
+  text-decoration: none;
+  color: #c0c000; }
+
+a:visited {
+  color: #808000; }
+
+a:hover {
+  text-decoration: underline; }
 
 em {
   font-style: italic; }
