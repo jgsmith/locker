@@ -53,6 +53,14 @@
                       = link_to('Edit Profile', { :controller => 'users', :action => 'edit' })
                       = yield :user_options
                     .ft
+                  - if @user.upload_filters.count > 0
+                    .module
+                      .hd Your Feeds
+                      .bd
+                        %ul
+                          - @user.upload_filters.each do |f|
+                            %li= link_to(f.name, f)
+                      .ft
                 - else
                   .module
                     .hd= Login

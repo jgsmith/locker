@@ -1,9 +1,9 @@
 require 'digest/sha1'
 class User < ActiveRecord::Base
-  has_many :groups
+  has_many :groups, :order => :name
   has_many :group_memberships
   has_many :uploads
-  has_many :upload_filters
+  has_many :upload_filters, :order => :name
 
   def available_files
     files = self.uploads
