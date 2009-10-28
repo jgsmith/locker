@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 5) do
+ActiveRecord::Schema.define(:version => 6) do
 
   create_table "group_memberships", :force => true do |t|
     t.integer "group_id"
@@ -22,6 +22,11 @@ ActiveRecord::Schema.define(:version => 5) do
     t.boolean "members_can_contribute", :default => false
   end
 
+  create_table "groups_upload_filters", :id => false, :force => true do |t|
+    t.integer "upload_filter_id"
+    t.integer "group_id"
+  end
+
   create_table "groups_uploads", :id => false, :force => true do |t|
     t.integer "group_id"
     t.integer "upload_id"
@@ -31,9 +36,22 @@ ActiveRecord::Schema.define(:version => 5) do
     t.string "name"
   end
 
+  create_table "tags_upload_filters", :id => false, :force => true do |t|
+    t.integer "upload_filter_id"
+    t.integer "tag_id"
+  end
+
   create_table "tags_uploads", :id => false, :force => true do |t|
     t.integer "upload_id"
     t.integer "tag_id"
+  end
+
+  create_table "upload_filters", :force => true do |t|
+    t.integer "user_id"
+    t.string  "name"
+    t.string  "web_id"
+    t.integer "size",        :default => 10
+    t.boolean "require_all"
   end
 
   create_table "uploads", :force => true do |t|

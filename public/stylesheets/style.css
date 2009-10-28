@@ -79,7 +79,10 @@ h1, h2, h3, h4, h5, h6, p, pre, blockquote, fieldset, ul, ol, dl {
   width: 842px;
   text-align: left; }
   #header-content a {
-    color: #f8f8f8; }
+    color: #f8f8f8;
+    text-decoration: none; }
+  #header-content a:hover {
+    text-decoration: none; }
 
 #header-name {
   font-size: 261%;
@@ -138,9 +141,6 @@ h1, h2, h3, h4, h5, h6, p, pre, blockquote, fieldset, ul, ol, dl {
   width: 940px;
   margin-left: auto;
   margin-right: auto; }
-  #content a {
-    text-decoration: none;
-    color: #46494c; }
 
 #alpha, #beta {
   display: inline;
@@ -164,6 +164,8 @@ h1, h2, h3, h4, h5, h6, p, pre, blockquote, fieldset, ul, ol, dl {
   width: 286px;
   padding-left: 4px; }
 
+#beta-inner a {
+  color: #303030; }
 
 #footer {
   clear: both;

@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :groups
   has_many :group_memberships
   has_many :uploads
+  has_many :upload_filters
 
   def available_files
     files = self.uploads

@@ -2,9 +2,11 @@ ActionController::Routing::Routes.draw do |map|
   # The priority is based upon order of creation: first created -> highest priority.
 
   map.resources :groups
+  map.resources :upload_filters, :as => 'feeds'
   map.resources :uploads, :as => 'files'
 
   map.connect 'profile', :controller => :users, :action => :edit
+  map.connect 'feeds/:id/change_web_id', :controller => 'upload_filters', :action => 'change_web_id'
 
   # Sample of regular route:
   #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'

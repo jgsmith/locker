@@ -1,0 +1,28 @@
+%h1=h @filter.name
+
+%ul
+  %li= link_to "Edit Feed", edit_upload_filter_path(@filter)
+  %li= link_to "Change Feed URL", {:controller=>"upload_filters", :action=>"change_web_id", :id => @filter}
+
+%h2 
+  = @filter.size
+  Most Recent Uploads
+
+%p
+  You may use 
+  = link_to "this link", { :controller => "upload_filters", :action => "show", :id => @filter.web_id, :format => "atom" }
+  to view this feed in your favorite reader.
+
+- if @files.size > 0
+  %ul
+    - @files.each do |file|
+      %li
+        = link_to(file.filename, upload_path(file))
+        = "(" + number_to_human_size(file.size) + ")"
+        Uploaded by
+        =h file.user.login
+        on
+        = file.created_at
+- else
+  %p
+    No files are in this feed.

@@ -1,0 +1,37 @@
+%h1 Edit Feed
+
+.simple-form
+  - form_for :upload_filter, :url => { :action => 'update' } do |f|
+    = display_success
+    = display_errors
+
+    %input{:type => 'hidden', :name => '_method', :value => 'PUT'}
+
+    .form-field
+      = label(:upload_filter, :name, "Feed Name")
+      = f.text_field :name
+
+    /.form-field
+    /  = f.check_box :require_all
+    /  = label(:upload_filter, :require_all, "Require all of the tags and groups", :class => 'cb')
+
+    .form-field
+      = label(:upload_filter, :size, "How many recent uploads should be included in this feed?")
+      = f.text_field :size
+
+
+    .form-field
+      = label(:upload_filter, :groups)
+      - (@user.groups + @user.group_memberships.collect{|g| g.group}).each do |group|
+        %div
+          = check_box_tag 'upload_filter[groups][]', group.id, @upload_filter.groups.include?(group)
+          %label{:class => 'cb'}=h group.name_for(@user)
+
+    .form-field
+      = label(:upload_filter, :tags, "Tags (one per line)")
+      = f.text_area :tag_list
+
+
+    .form-buttons
+      = f.submit 'Save Changes'
+

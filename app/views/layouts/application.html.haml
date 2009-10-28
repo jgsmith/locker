@@ -36,6 +36,7 @@
               %li{:class => current_page?(:controller => 'main') ? 'on' : ''}= link_to_unless_current('Home', { :controller => 'main' })
               %li{:class => current_page?(:controller => 'uploads') ? 'on' : ''}= link_to_unless_current('Files', { :controller => 'uploads' })
               %li{:class => current_page?(:controller => 'groups') ? 'on' : ''}= link_to_unless_current('Groups', { :controller => 'groups' })
+              %li{:class => current_page?(:controller => 'upload_filters') ? 'on' : ''}= link_to_unless_current('Feeds', { :controller => 'upload_filters' })
           %div{:style => 'clear: both;'}
 
         #content

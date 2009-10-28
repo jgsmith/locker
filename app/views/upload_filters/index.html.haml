@@ -1,0 +1,14 @@
+- content_for :user_options do
+  .filter-options
+    =link_to 'Create Feed', { :action => 'new' }
+
+%h1 Feeds
+
+- if @filters.size > 0
+  %ul
+    - @filters.each do |filter|
+      %li= link_to filter.name, filter
+- else
+  %p
+    You do not have any feeds.
+    = link_to 'Create a feeds.', { :action => 'new' }

@@ -88,6 +88,10 @@ h1, h2, h3, h4, h5, h6, p, pre, blockquote, fieldset, ul, ol, dl
 
   a
     :color = !light
+    :text-decoration none
+
+  a:hover
+    :text-decoration none
 
 #header-name
   :font-size 261%
@@ -153,10 +157,6 @@ h1, h2, h3, h4, h5, h6, p, pre, blockquote, fieldset, ul, ol, dl
   :margin-left auto
   :margin-right auto
 
-  a
-    :text-decoration none
-    :color #46494c
-
 #alpha, #beta
   :display inline
   :float left
@@ -180,6 +180,9 @@ h1, h2, h3, h4, h5, h6, p, pre, blockquote, fieldset, ul, ol, dl
   :padding-left 4px
 
 #beta-inner
+
+  a
+    :color = !dark
 
 #footer
   :clear both
