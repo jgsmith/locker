@@ -253,20 +253,24 @@
           g.set(item, 1);
         });
 
-        var found_tag = false;
+        var found_tag = true;
         filters.tags.each(function(item) {
-          if(t.get(item)) {
-            found_tag = true;
+          if(!t.get(item)) {
+            found_tag = false;
           }
         });
 
-        var found_group = false;
+        var found_group = true;
         filters.groups.each(function(item) {
-          if(g.get(item)) {
-            found_group = true;
+          if(!g.get(item)) {
+            found_group = false;
           }
         });
 
+        if(found_group && found_tag) {
+          return true;
+        }
+        return false;
         if(filters.tags.size() > 0 && !found_tag || filters.groups.size() > 0 && !found_group) {
           return false;
         }
