@@ -46,7 +46,7 @@ Rails::Initializer.run do |config|
 end
 
 CASClient::Frameworks::Rails::Filter.configure(
-  :cas_base_url => "https://netid.tamu.edu/cas"
+  :cas_base_url => "https://cas.tamu.edu/cas"
 )
 
 Mime::Type.register_alias "text/html", :ext_json_html

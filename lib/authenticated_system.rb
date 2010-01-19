@@ -11,11 +11,11 @@ module AuthenticatedSystem
       if !@current_user
         @current_user = (session[:user] && User.find_by_id(session[:user])) || 
                         (session[:cas_user] && User.find_by_login(session[:cas_user])) || 
-                        (session[:cas_extra_attributes] && session[:cas_extra_attributes]["uin"] && User.find_by_uin(session[:cas_extra_attributes]["uin"])) || 
+                        (session[:cas_extra_attributes] && session[:cas_extra_attributes]["tamuEduPersonUIN"] && User.find_by_uin(session[:cas_extra_attributes]["tamuEduPersonUIN"])) || 
                         false
         if @current_user
           @current_user.login = session[:cas_user] if session[:cas_user]
-          @current_user.uin   = session[:cas_extra_attributes]["uin"] if session[:cas_extra_attributes] && session[:cas_extra_attributes]["uin"]
+          @current_user.uin   = session[:cas_extra_attributes]["tamuEduPersonUIN"] if session[:cas_extra_attributes] && session[:cas_extra_attributes]["tamuEduPersonUIN"]
           @current_user.save
         end
       end
